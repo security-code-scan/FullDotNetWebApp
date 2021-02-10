@@ -15,10 +15,12 @@ jobs:
         run: |
           nuget restore
           msbuild /p:ErrorLog=analysis.sarif
-          for sarifFile in $(find ./ -name '*.sarif')
-          do
-            cat $sarifFile
-          done
+          FOR /R "." %%a  in (*.sarif) DO (
+              IF EXIST "%%~fa" (
+                  echo "%%~fa" 
+                  type %%~fa
+              )
+          )
         
       - name: Convert sarif for uploading to GitHub
         uses: security-code-scan/security-code-scan-results-action@main
