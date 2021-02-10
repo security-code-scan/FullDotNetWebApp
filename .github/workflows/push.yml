@@ -15,22 +15,16 @@ jobs:
         run: |
           nuget restore
           msbuild /p:ErrorLog=analysis.sarif
-          FOR /R "." %%a  in (*.sarif) DO (
-              IF EXIST "%%~fa" (
-                  echo "%%~fa" 
-                  type %%~fa
-              )
-          )
+          type ./FullDotNetWebApp/analysis.sarif
+          type ./FullDotNetWebApp2/analysis.sarif
         
       - name: Convert sarif for uploading to GitHub
         uses: security-code-scan/security-code-scan-results-action@main
 
       - name: converted
         run: |
-          for sarifFile in $(find ../results -name '*.sarif')
-          do
-            cat $sarifFile
-          done
+          type ../results/0.sarif
+          type ../results/1.sarif
         
       - name: Upload sarif	
         uses: github/codeql-action/upload-sarif@v1
