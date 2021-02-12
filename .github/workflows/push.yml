@@ -12,13 +12,10 @@ jobs:
       - uses: nuget/setup-nuget@v1.0.5
       - uses: microsoft/setup-msbuild@v1.0.2
 
-      - name: Set up projects
-        uses: security-code-scan/security-code-scan-add-action@main
-
       - name: Build
         run: |
           nuget restore
-          msbuild
+          msbuild /p:ErrorLog=analysis.sarif
         
       - name: Convert sarif for uploading to GitHub
         uses: security-code-scan/security-code-scan-results-action@main
