@@ -22,7 +22,9 @@ jobs:
         
       - name: Convert sarif for uploading to GitHub
         uses: security-code-scan/security-code-scan-results-action@main
-      - run: type D:\a\FullDotNetWebApp\FullDotNetWebApp\FullDotNetWebApp\packages.config
+      - run: |
+          type D:\a\FullDotNetWebApp\FullDotNetWebApp\FullDotNetWebApp\packages.config
+          type D:\a\FullDotNetWebApp\FullDotNetWebApp\FullDotNetWebApp\FullDotNetWebApp.csproj
         
       - name: Upload sarif
         uses: github/codeql-action/upload-sarif@v1
